@@ -26,3 +26,4 @@ from .registry import RegistryMetaclassMixin
 
 
 __author__ = "libcommon"
+__version__ = "0.1.0"
