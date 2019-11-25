@@ -69,7 +69,7 @@ class RegistryMetaclassMixin(ABCMeta):
         cls._REGISTRY[name] = new_cls
         return None
 
-    def __new__(cls, name: str, bases: Tuple[Type[Any], ...], attrs: Dict[str, Any]):
+    def __new__(cls, name: str, bases: Tuple[Type[Any], ...], attrs: Dict[str, Any]):   # pylint: disable=arguments-differ
         """Create new type and pass new class to _add_class."""
         new_cls = type.__new__(cls, name, bases, attrs)
         cls._add_class(name, new_cls)
@@ -93,7 +93,7 @@ if os.environ.get("ENVIRONMENT") == "TEST":
         @abstractmethod
         def abstract(self) -> str:
             return "ABSTRACT"
-    
+
     class TestRegistryMetaclassMixin(unittest.TestCase):
         """Tests for RegistryMetaclassMixin."""
 
