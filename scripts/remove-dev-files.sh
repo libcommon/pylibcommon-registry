@@ -26,13 +26,13 @@ do
     if [ -f $FILENAME ]
     then
         echo "::: INFO: Removing $FILENAME"
-        rm $FILENAME
+        git rm $FILENAME
     fi
 done 
 
 for DIRECTORY in "__pycache__" ".mypy_cache" "build" "\.egg-info"
 do
-    find . -iregex ".*${DIRECTORY}.*" -type d | \
+    find . -iregex ".*${DIRECTORY}.*" \! -iregex '.*venv.*' -type d | \
         while read DIRECTORY_PATH
         do
             echo "::: INFO: Removing ${DIRECTORY_PATH}"
@@ -41,4 +41,4 @@ do
 done
 
 echo "::: INFO: Removing scripts directory"
-rm -rf scripts
+git rm -rf scripts
