@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 ## remove-tests.sh
 ##
-## Copyright (c) 2019 libcommon
+## Copyright (c) 2020 libcommon
 ##
 ## Permission is hereby granted, free of charge, to any person obtaining a copy
 ## of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,7 @@
 
 if [ $# -lt 1 ]
 then
-    echo "::: ERROR: Must supply at least one file to remove tests from"
+    echo "::: ERROR: Must supply at least one file/directory to remove tests from"
     exit 1
 fi
 
@@ -38,4 +38,6 @@ else
 fi
 
 echo "::: INFO: Removing tests from ${@}"
-$COMMAND -i'' -n -e "/${PATTERN}/q;p" "${@}"
+find "${@}" -type f -exec $COMMAND -i'' -n "/${PATTERN}/q;p" {} \; \
+    -exec $COMMAND -i'' '$d' {} \; \
+    -exec $COMMAND -i'' '$d' {} \;

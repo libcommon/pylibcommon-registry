@@ -1,7 +1,7 @@
 ## -*- coding: UTF-8 -*-
 ## registry.py
 ##
-## Copyright (c) 2019 libcommon
+## Copyright (c) 2020 libcommon
 ##
 ## Permission is hereby granted, free of charge, to any person obtaining a copy
 ## of this software and associated documentation files (the "Software"), to deal
@@ -22,7 +22,6 @@
 ## SOFTWARE.
 
 
-from abc import ABCMeta, abstractmethod
 import os
 from typing import Any, ClassVar, Dict, Optional, Tuple, Type
 
@@ -30,13 +29,11 @@ from typing import Any, ClassVar, Dict, Optional, Tuple, Type
 __author__ = "libcommon"
 
 
-class RegistryMetaclassMixin(ABCMeta):
+class RegistryMetaclassMixin:
     """Mixin class implementing registry pattern
-    with Python metaprogramming. Extends abc.ABCMeta
-    and thus supports features like abstractmethod and
-    registering subclasses. For more information on ABCMeta,
-    see https://docs.python.org/3/library/abc.html#abc.ABCMeta.
+    with Python metaprogramming.
     """
+    __slots__ = ()
     _REGISTRY: ClassVar[Optional[Dict[str, Type[Any]]]] = None
 
     @classmethod
@@ -77,15 +74,16 @@ class RegistryMetaclassMixin(ABCMeta):
 
 
 if os.environ.get("ENVIRONMENT") == "TEST":
+    from abc import ABCMeta, abstractmethod
     import unittest
 
-    class MetaNoRegistry(RegistryMetaclassMixin):
+    class MetaNoRegistry(RegistryMetaclassMixin, ABCMeta):
         """Metaclass without registry."""
 
     class BaseNoRegistry(metaclass=MetaNoRegistry):
         pass
 
-    class MetaWithRegistry(RegistryMetaclassMixin):
+    class MetaWithRegistry(RegistryMetaclassMixin, ABCMeta):
         """Metaclass with registry."""
         _REGISTRY: ClassVar[Dict[str, Type[Any]]] = dict()
 

@@ -1,6 +1,6 @@
 ## setup.py
 ##
-## Copyright (c) 2019 libcommon
+## Copyright (c) 2020 libcommon
 ##
 ## Permission is hereby granted, free of charge, to any person obtaining a copy
 ## of this software and associated documentation files (the "Software"), to deal
@@ -40,6 +40,10 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="PACKAGE_CODE_URL",
+    project_urls={
+        "Issue Tracker": "PACKAGE_CODE_URL/issues",
+        "Releases": "PACKAGE_CODE_URL/releases"
+    },
     packages=setuptools.find_packages(),
     classifiers=[
         "Intended Audience :: Developers",
