@@ -1,5 +1,4 @@
-#!/usr/bin/env sh
-## run-tests.sh
+## setup.py
 ##
 ## Copyright (c) 2020 libcommon
 ##
@@ -22,20 +21,35 @@
 ## SOFTWARE.
 
 
-if [ $# -lt 1 ]
-then
-    echo "::: ERROR: Must supply at least one file to run tests on"
-    exit 1
-fi
+import os
+import setuptools
 
-if [ ! -d "venv" ]
-then
-    echo "::: ERROR: Virtual environment does not exist"
-    exit 1
-fi
+if os.path.isfile("README.md"):
+    with open("README.md", "r") as readme:
+        long_description = readme.read()
+else:
+    long_description = ""
 
-source venv/bin/activate
 
-ENVIRONMENT=TEST python -m unittest "${@}"
-
-deactivate
+setuptools.setup(
+    name="lc_registry",
+    version="0.1.2",
+    author="libcommon",
+    author_email="libcommon@protonmail.com",
+    description="",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/libcommon/registry-py",
+    project_urls={
+        "Issue Tracker": "https://github.com/libcommon/registry-py/issues",
+        "Releases": "https://github.com/libcommon/registry-py/releases"
+    },
+    packages=setuptools.find_packages(),
+    classifiers=[
+        "Intended Audience :: Developers",
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
+    python_requires='>=3.6',
+)

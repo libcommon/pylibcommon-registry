@@ -24,5 +24,3 @@
 
 from .registry import RegistryMetaclassMixin
 
-
-__author__ = "libcommon"
